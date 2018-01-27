@@ -30,7 +30,7 @@ public class Simulation {
          if(Math.random() < p_malicious)
             // When you are ready to try testing with malicious nodes, replace the
             // instantiation below with an instantiation of a MaliciousNode
-            nodes[i] = new MalDoNothing(p_graph, p_malicious, p_txDistribution, numRounds);
+            nodes[i] = new MaliciousNode(p_graph, p_malicious, p_txDistribution, numRounds);
          else
             nodes[i] = new CompliantNode(p_graph, p_malicious, p_txDistribution, numRounds);
       }
@@ -81,7 +81,7 @@ public class Simulation {
          // proposals. The value is an ArrayList containing 1x2 Integer arrays. The first
          // element of each array is the id of the transaction being proposed and the second
          // element is the index # of the node proposing the transaction.
-         HashMap<Integer, Set<Candidate>> allProposals = new HashMap<>();
+         HashMap<Integer, Set<Candidate>> allProposals = new HashMap<Integer, Set<Candidate>>();
 
          for (int i = 0; i < numNodes; i++) {
             Set<Transaction> proposals = nodes[i].sendToFollowers();
@@ -93,7 +93,7 @@ public class Simulation {
                   if(!followees[j][i]) continue; // tx only matters if j follows i
 
                   if (!allProposals.containsKey(j)) {
-                	  Set<Candidate> candidates = new HashSet<>();
+                	  Set<Candidate> candidates = new HashSet<Candidate>();
                 	  allProposals.put(j, candidates);
                   }
                   
